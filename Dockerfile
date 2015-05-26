@@ -8,31 +8,22 @@ ENV BUILD_USER_GROUP users
 RUN sed -ri '/ZONE=/c ZONE="America\/New York"' /etc/sysconfig/clock
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
 
-# Install maven
-ENV MAVEN_VERSION 3.2.1
-RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
-  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-ENV MAVEN_HOME /usr/share/maven
+RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo
+RUN mv devtools-2.repo /etc/yum.repos.d/devtools-2.repo
 
-# Install yum packages required for build node
+# Install yum packages required for cmake build node
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
 RUN yum install -y -q `cat /tmp/yum.packages.list`
 
+#link to where version 4.8.x of GCC is installed for our make scripts
+
+RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/gcc /usr/local/bin/gcc
+RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/g++ /usr/local/bin/g++
+
 # Install Compass
 RUN gem update --system
 RUN gem install compass
-
-# Update node and npm
-RUN npm install -g npm
-RUN npm install -g bower
-RUN npm install -g grunt
-RUN npm install -g grunt-cli
-RUN npm install -g phantomjs
-
-# We have to use this fixed version otherwise we get fatal error: socket hang up errors
-RUN npm install -g grunt-connect-proxy@0.1.10
 
 # Make sure anything/everything we put in the build user's home dir is owned correctly
 RUN chown -R $BUILD_USER:$BUILD_USER_GROUP /home/$BUILD_USER  

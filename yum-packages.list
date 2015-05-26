@@ -1,4 +1,7 @@
-cmake28
+cmake
 ruby
 ruby-devel
 rubygems
+devtoolset-2-gcc
+devtoolset-2-binutils
+devtoolset-2-gcc-c++
