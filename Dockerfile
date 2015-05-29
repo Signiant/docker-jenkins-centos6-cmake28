@@ -20,6 +20,8 @@ RUN yum install -y -q `cat /tmp/yum.packages.list`
 
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/gcc /usr/local/bin/gcc
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/g++ /usr/local/bin/g++
+RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/c++ /usr/bin/c++
+
 
 # Install needed perl modules
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
