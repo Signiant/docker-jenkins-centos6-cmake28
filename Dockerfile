@@ -24,6 +24,8 @@ RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/g++ /usr/local/bin/g++
 #Remove native binary for c++ as we need the bin c++ linked to 4.8.2
 RUN rm -f /usr/bin/c++
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/c++ /usr/bin/c++
+RUN unlink /usr/lib/gcc/x86_64-redhat-linux/4.4.7
+RUN ln -s /opt/rh/devtoolset-2/root/usr/lib/gcc/x86_64-redhat-linux/4.8.2 /usr/lib/gcc/x86_64-redhat-linux/4.4.7
 
 
 # Install needed perl modules
