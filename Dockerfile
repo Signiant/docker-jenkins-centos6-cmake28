@@ -20,6 +20,9 @@ RUN yum install -y -q `cat /tmp/yum.packages.list`
 
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/gcc /usr/local/bin/gcc
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/g++ /usr/local/bin/g++
+
+#Remove native binary for c++ as we need the bin c++ linked to 4.8.2
+RUN rm -f /usr/bin/c++
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/c++ /usr/bin/c++
 
 
