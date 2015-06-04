@@ -2,8 +2,7 @@ cmake
 ruby
 ruby-devel
 rubygems
-devtoolset-2-gcc
-devtoolset-2-binutils
-devtoolset-2-gcc-c++
+devtoolset-2-gcc-4.8.1
+devtoolset-2-gcc-c++-4.8.1
 perl
 perl-CPAN
