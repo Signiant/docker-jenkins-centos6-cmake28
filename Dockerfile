@@ -39,7 +39,7 @@ RUN /bin/bash -l -c "cpanm `cat /tmp/perl-modules.list | tr \"\\n\" \" \"`"
 
 # Install Compass
 RUN gem update --system
-#RUN gem install compass
+RUN gem install compass
 
 # Make sure anything/everything we put in the build user's home dir is owned correctly
 RUN chown -R $BUILD_USER:$BUILD_USER_GROUP /home/$BUILD_USER  
