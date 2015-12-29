@@ -30,6 +30,23 @@ RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
 RUN unlink /usr/lib/gcc/x86_64-redhat-linux/4.4.7
 RUN ln -s /opt/rh/devtoolset-2/root/usr/lib/gcc/x86_64-redhat-linux /usr/lib/gcc/x86_64-redhat-linux
 
+# Install Python 2.7.X for Umpire
+RUN cd /tmp && \
+    wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz && \
+    tar xvfz Python-2.7.11.tgz && \
+    cd Python-2.7.11 && \
+    ./configure --prefix=/usr/local && \
+    make && \
+    make altinstall
+
+# Install pip
+RUN cd /tmp && \
+    wget https://bootstrap.pypa.io/get-pip.py && \
+    python2.7 ./get-pip.py
+
+# Install umpire
+# TODO: don't install --pre when umpire has been updated to 0.3.x
+RUN pip2.7 install umpire --pre
 
 # Install needed perl modules
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
