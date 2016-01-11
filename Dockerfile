@@ -14,7 +14,7 @@ RUN mv devtools-2.repo /etc/yum.repos.d/devtools-2.repo
 # Install yum packages required for cmake build node
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
-RUN yum install -y -q `cat /tmp/yum.packages.list`
+RUN yum install -y `cat /tmp/yum.packages.list`
 
 #link to where version 4.8.x of GCC is installed for our make scripts
 
@@ -29,6 +29,16 @@ RUN unlink /usr/local/bin/gcc
 RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
 RUN unlink /usr/lib/gcc/x86_64-redhat-linux/4.4.7
 RUN ln -s /opt/rh/devtoolset-2/root/usr/lib/gcc/x86_64-redhat-linux /usr/lib/gcc/x86_64-redhat-linux
+
+# Install the latest version of git
+RUN cd /tmp && \
+    wget https://github.com/git/git/archive/v2.7.0.tar.gz && \
+    tar xvfz ./v2.7.0.tar.gz && \
+    cd git-2.7.0 && \
+    make configure && \
+    ./configure --prefix=/usr && \
+    make && \
+    make install
 
 # Install Python 2.7.X for Umpire
 RUN cd /tmp && \

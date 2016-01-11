@@ -7,3 +7,8 @@ devtoolset-2-gcc-c++-4.8.2
 devtoolset-2-binutils
 perl
 perl-CPAN
+gettext
+tcl-devel
+tk-devel
+libcurl-devel
+expat-devel
