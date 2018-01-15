@@ -12,3 +12,4 @@ tcl-devel
 tk-devel
 libcurl-devel
 expat-devel
+openssl-devel
